@@ -17,11 +17,11 @@ ifdef TARGET
 	-include $(RESOURCE_DIR)/toolchain/config_$(TARGET).mk
 endif
 
-CC		?= $(CROSS)gcc
-LD		?= $(CROSS)ld
-AR		?= $(CROSS)ar
-STRIP	?= $(CROSS)strip
-ARCH	?= $(shell $(CC) -dumpmachine | cut -d - -f1)
+CC		= $(CROSS)gcc
+LD		= $(CROSS)ld
+AR		= $(CROSS)ar
+STRIP	= $(CROSS)strip
+ARCH	= $(shell $(CC) -dumpmachine | cut -d - -f1)
 
 ################################################################################
 # Select compilation configuration
@@ -49,12 +49,11 @@ LIB_DIR		?= $(BUILD_DIR)/lib
 BIN_DIR		?= $(BUILD_DIR)/bin
 TEST_DIR	?= $(BUILD_DIR)/test
 DOC_DIR		?= $(PROJ_DIR)/build/doc
-INC_DIR		?= $(BUILD_DIR)/inc
 
 ################################################################################
 # Compilation flags
 ################################################################################
-CFLAGS		+= -rdynamic -funwind-tables -fstack-protector-all -Wall -Werror
+CFLAGS		+= -funwind-tables -fstack-protector-all -Wall -Werror
 INCFLAGS	= -iquote $(abspath ./inc)
 
 ################################################################################
