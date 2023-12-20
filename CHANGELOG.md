@@ -2,6 +2,7 @@
 
 ## Added
  * Init of project.
+ * Add base makefile compilation.
 
 ## Fixed
 
