@@ -6,7 +6,8 @@
 2. [Dependencies](#dependencies)
 3. [How to build](#how-to-build)
     1. [Compile library](#compile-library)
-    2. [Compile unit test](#compile-unit-test)
+    2. [Compile test application](#compile-test-application)
+    3. [Compile unit test](#compile-unit-test)
 4. [Known issues](#known-issues)
     1. [Create temporary file](#create-temporary-file)
 
@@ -32,10 +33,19 @@ Install packages below:
 To compile project use command below:
 
 ```(bash)
-make
+make lib
 ```
 
-Outputs are located to *build/<compilation_mode>/\<arch>/lib*.
+Outputs are located to *build/<compilation_mode>/\<arch>/lib/*.
+
+### Compile test application <a name="compile-test-application"></a>
+To compile project use command below:
+
+```(bash)
+make appl
+```
+
+Outputs are located to *build/<compilation_mode>/\<arch>/bin/*.
 
 ### Compile unit test <a name="compile-unit-test"></a>
 

@@ -344,3 +344,27 @@ int parse_hex64(const char * str, uint64_t * hex)
 
     return ret;
 }
+
+int parse_double(const char * str, double * number)
+{
+    int     ret;
+    char*   end;
+    double  tmp;
+
+    ASSERT_STR_NOT_NULL( str, -1 );
+    ASSERT_PTR( number, -1 );
+
+    tmp = strtod( str, &end );
+
+    if ( *end )
+    {
+        ret = -1;
+    }
+    else
+    {
+        *number = tmp;
+        ret = 0;
+    }
+
+    return ret;
+}

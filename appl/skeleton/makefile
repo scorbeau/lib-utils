@@ -1,13 +1,14 @@
 ################################################################################
 # Author: Sebastien CORBEAU (sebastien.corbeau@viveris.fr)                     #
-# Date: 19/12/2023                                                             #
+# Date: 23/12/2023                                                             #
 ################################################################################
 
 ################################################################################
 # Define project directories
 ################################################################################
-PROJECT_DIR		= $(abspath .)
+PROJECT_DIR		= $(abspath ../..)
 RESOURCE_DIR	= $(PROJECT_DIR)/res
+SRC_DIR			= $(abspath ./src)
 
 ################################################################################
 # Define target
@@ -17,6 +18,9 @@ ifdef TARGET
 endif
 
 CC		= $(CROSS)gcc
+LD		= $(CROSS)ld
+AR		= $(CROSS)ar
+STRIP	= $(CROSS)strip
 ARCH	= $(shell $(CC) -dumpmachine | cut -d - -f1)
 
 ################################################################################
@@ -31,90 +35,70 @@ DEBUG_LEVEL	?= 3
 
 ifeq ($(DEBUG_ENABLE),y)
 	CFLAGS		+= -g$(DEBUG_LEVEL) -DCONF=debug -DDEBUG_ENABLE=1
-	CXXFLAGS	+= -g$(DEBUG_LEVEL) -DCONF=debug -DDEBUG_ENABLE=1
 	CONF=debug
 else
 	CONF=release
 endif
 
-ifeq ($(DISABLE_PARANOID_MODE),y)
-	CFLAGS		+= -DDISABLE_PARANOID_MODE=1
-	CXXFLAGS	+= -DDISABLE_PARANOID_MODE=1
-endif
-
 ################################################################################
 # Define build directories
 ################################################################################
-BUILD_DIR	?= $(PROJECT_DIR)/build/$(CONF)/$(ARCH)
+BUILD_DIR	?= $(PROJECT_DIR)/build/$(MODE)/$(ARCH)
 OBJ_DIR		?= $(BUILD_DIR)/obj
 LIB_DIR		?= $(BUILD_DIR)/lib
 BIN_DIR		?= $(BUILD_DIR)/bin
 TEST_DIR	?= $(BUILD_DIR)/test
-DOC_DIR		?= $(PROJECT_DIR)/build/doc
-INC_DIR		?= $(BUILD_DIR)/inc
+DOC_DIR		?= $(PROJ_DIR)/build/doc
 
 ################################################################################
 # Compilation flags
 ################################################################################
-CFLAGS		+= -funwind-tables -fstack-protector-all -Wall -Werror -I $(INC_DIR)
-CXXFLAGS	+= -funwind-tables -fstack-protector-all -Wall -Werror -I $(INC_DIR)
-INCFLAGS	+= -isystem $(PROJECT_DIR)/lib/inc
+CFLAGS		?= -funwind-tables -fstack-protector-all -Wall -Werror
+override INCFLAGS	+= -iquote $(abspath ./inc)
+LIBS		= -L $(LIB_DIR) -l:lib-utils.a
 
 ################################################################################
-# Version header file
+# Obj to compile
 ################################################################################
-GIT_VERSION_FILE=$(INC_DIR)/git-informations.h
+OBJS_LIST	= $(patsubst %.c, $(OBJ_DIR)/%.o, $(shell find $(SRC_DIR) -name \
+				*.c | sed -e 's,\$(SRC_DIR)/,,'))
 
 ################################################################################
-# Project name
+# Application name
 ################################################################################
-PROJECT_NAME	= $(notdir $(shell git rev-parse --show-toplevel))
-
-################################################################################
-# Binary applications.
-################################################################################
-APPL_NAME = $(dir $(wildcard appl/*/makefile))
+APPL_NAME	?= $(notdir $(shell git rev-parse --show-toplevel))
+APPL_BIN	= $(APPL_NAME).exe
 
 ################################################################################
 # Main rules
 ################################################################################
 default: all
 
-all: lib appl
+all: appl
 
 ################################################################################
 # Build rules
 ################################################################################
-lib: $(GIT_VERSION_FILE)
-	make -C lib LIB_NAME="$(PROJECT_NAME)" CROSS="$(CROSS)" CFLAGS="$(CFLAGS)" \
-		BUILD_DIR="$(BUILD_DIR)" LIB_DIR="$(LIB_DIR)" OBJ_DIR="$(OBJ_DIR)/lib" \
-		DOC_DIR="$(DOC_DIR)" CONF="$(CONF)"
+appl: $(APPL_BIN)
+$(APPL_BIN): $(BIN_DIR)/$(APPL_BIN)
+$(BIN_DIR)/%.exe: $(OBJS_LIST)
+	mkdir -p $(@D)
+	$(CC) -o $@ $^ $(LIBS)
+ifeq ($(CONF), release)
+	$(STRIP) $@
+endif
 
-appl: lib
-	@for d in `echo $(APPL_NAME)`; do \
-		make -C $$d APPL_NAME=`basename $$d` CROSS="$(CROSS)" CFLAGS="$(CFLAGS)" \
-		BUILD_DIR="$(BUILD_DIR)" LIB_DIR="$(LIB_DIR)" BIN_DIR="$(BIN_DIR)" \
-		OBJ_DIR="$(OBJ_DIR)/bin" DOC_DIR="$(DOC_DIR)" CONF="$(CONF)" \
-		INCFLAGS="$(INCFLAGS)" appl || exit 1; \
-	done
-
-tests: lib
-	make -C tests CROSS="$(CROSS)" CXXFLAGS="$(CXXFLAGS)" \
-		BUILD_DIR="$(BUILD_DIR)" LIB_DIR="$(LIB_DIR)" INCFLAGS="$(INCFLAGS)" \
-		OBJ_DIR="$(OBJ_DIR)/tests" CONF="$(CONF)"
-
-$(GIT_VERSION_FILE):
-	@mkdir -p $(@D)
-	@rm -Rf $@
-	$(RESOURCE_DIR)/tools/git/version_header_generator.sh $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p  $(shell dirname $@)
+	$(CC) $(CFLAGS) -fPIC $(INCFLAGS) -DAPPL_NAME="$(APPL_NAME)" -o $@ -c $<
 
 ################################################################################
 # Clean rules
 ################################################################################
 clean:
-	rm -Rf $(LIB_DIR) $(BIN_DIR) $(INC_DIR) $(DOC_DIR)
+	rm -rf $(BIN_DIR)/$(APPL_BIN) $
 
-distclean:
-	rm -rf build
+distclean: clean
+	rm -Rf $(OBJ_DIR)
 
-.PHONY: default all appl lib tests clean
+.PHONY: default all appl clean distclean doc

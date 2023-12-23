@@ -11,36 +11,36 @@
  * @brief Return library name.
  * @return The library name when available otherwise "NO_LIBRARY_NAME_DEFINED".
  */
-const char * getLibName(void);
+const char * get_lib_utils_name(void);
 
 /*!
  * @brief Return GIT tag version of lib-utils.
  * @return The GIT tag revision when available otherwise "NO_GIT_TAG_DEFINED".
  */
-const char * getLibUtilsVersion(void);
+const char * get_lib_utils_version(void);
 
 /*!
  * @brief Return GIT sha1 value of lib-utils.
  * @return The GIT sha1 value when available otherwise "NO_GIT_SHA1_DEFINED".
  */
-const char * getLibUtilsSha1(void);
+const char * get_lib_utils_git_sha1(void);
 
 /*!
  * @brief Return the date of lib-utils compilation.
  * @return The date of lib-utils compilation.
  */
-const char * getLibCompilationDate(void);
+const char * get_lib_utils_compilation_date(void);
 
 /*!
  * @brief Return the time of lib-utils compilation.
  * @return The time of lib-utils compilation.
  */
-const char * getLibCompilationTime(void);
+const char * get_lib_utils_compilation_time(void);
 
 /*!
  * @brief Display the library version on stdout.
  * @return None.
  */
-void printLibUtilsVersion(void);
+void print_lib_utils_informations(void);
 
 #endif /* LIB_UTILS_VERSION_H__ */
