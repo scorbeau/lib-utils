@@ -4,6 +4,7 @@
  * Init of project.
  * Add base makefile compilation.
  * Unit tests.
+ * Application skeleton
 
 ## Fixed
 
