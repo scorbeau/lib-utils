@@ -1,0 +1,1 @@
+CROSS=/mingw64/bin/
