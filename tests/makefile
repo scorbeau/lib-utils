@@ -42,7 +42,7 @@ LIBS		= -L $(LIB_DIR) -lgtest -lgtest_main -l:lib-utils.a
 # Obj to compile
 ################################################################################
 TESTS_LIST	= $(patsubst %.cpp, $(TEST_DIR)/%.exe, $(shell find $(SRC_DIR) \
-				-name *.cpp | sed -e 's,\$(SRC_DIR)/,,'))
+		-name "*.cpp" | sed -e 's,$(SRC_DIR)/,,'))
 
 ################################################################################
 # Main rules

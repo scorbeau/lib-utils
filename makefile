@@ -37,6 +37,11 @@ else
 	CONF=release
 endif
 
+ifeq ($(DISABLE_PARANOID_MODE),y)
+	CFLAGS		+= -DDISABLE_PARANOID_MODE=1
+	CXXFLAGS	+= -DDISABLE_PARANOID_MODE=1
+endif
+
 ################################################################################
 # Define build directories
 ################################################################################
