@@ -34,32 +34,32 @@
 #define LIB_NAME "NO_LIBRARY_NAME_DEFINED"
 #endif
 
-const char * getLibName(void)
+const char * get_lib_utils_name(void)
 {
     return LIB_NAME;
 }
 
-const char * getLibUtilsVersion(void)
+const char * get_lib_utils_version(void)
 {
     return GIT_TAG;
 }
 
-const char * getLibUtilsSha1(void)
+const char * get_lib_utils_git_sha1(void)
 {
     return GIT_SHA1;
 }
 
-const char * getLibCompilationDate(void)
+const char * get_lib_utils_compilation_date(void)
 {
     return __DATE__;
 }
 
-const char * getLibCompilationTime(void)
+const char * get_lib_utils_compilation_time(void)
 {
     return __TIME__;
 }
 
-void printLibUtilsVersion(void)
+void print_lib_utils_informations(void)
 {
     printf("Library informations:\r\n");
     printf(" * Name : %s\r\n", LIB_NAME);

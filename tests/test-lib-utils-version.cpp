@@ -17,22 +17,22 @@ extern "C"
 
 namespace
 {
-    // Tests getLibName
-    TEST( getLibName, valid_cases )
+    // Tests get_lib_utils_name
+    TEST( get_lib_utils_name, valid_cases )
     {
-        EXPECT_STREQ( LIB_NAME, getLibName() );
+        EXPECT_STREQ( LIB_NAME, get_lib_utils_name() );
     }
 
-    // Tests getLibUtilsVersion
-    TEST( getLibUtilsVersion, valid_cases )
+    // Tests get_lib_utils_version
+    TEST( get_lib_utils_version, valid_cases )
     {
-        EXPECT_STREQ( GIT_TAG, getLibUtilsVersion() );
+        EXPECT_STREQ( GIT_TAG, get_lib_utils_version() );
     }
 
-    // Tests getLibUtilsSha1
-    TEST( getLibUtilsSha1, valid_cases )
+    // Tests get_lib_utils_git_sha1
+    TEST( get_lib_utils_git_sha1, valid_cases )
     {
-        EXPECT_STREQ( GIT_SHA1, getLibUtilsSha1() );
+        EXPECT_STREQ( GIT_SHA1, get_lib_utils_git_sha1() );
     }
 }
 
