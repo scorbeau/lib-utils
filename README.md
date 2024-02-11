@@ -13,8 +13,11 @@
 
 ## Description <a name="description"></a>
 
-This project is a set of utils tools to :
- * TODO
+This project is a set of utils tools :
+ * String management (copy, concat),
+ * Number parser.
+ * Assert.
+ * Tables.
 
 The project is hosted on Github.
 

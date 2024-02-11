@@ -9,7 +9,7 @@
 #include <string.h>
 
 #include <lib-utils-assert.h>
-#include <lib-utils-list.h>
+#include <lib-utils-tab.h>
 #include <lib-utils-parse-number.h>
 #include <lib-utils-string.h>
 

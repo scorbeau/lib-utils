@@ -1,4 +1,4 @@
-# UNRELEASED - YYYY-MM-DD
+# 1.0.0 - 2024-02-11
 
 ## Added
  * Init of project.
@@ -10,7 +10,3 @@
   * String utils,
   * Type define.
  * Application skeleton
-
-## Fixed
-
-## Changed

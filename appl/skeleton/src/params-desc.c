@@ -6,7 +6,7 @@
  */
 #include <stdio.h>
 
-#include <lib-utils-list.h>
+#include <lib-utils-tab.h>
 
 #include "params-desc.h"
 
