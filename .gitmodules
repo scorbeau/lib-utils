@@ -1,0 +1,3 @@
+[submodule "resources/tools/git-version-tools"]
+	path = resources/tools/git-version-tools
+	url = git@github.com:scorbeau/git-version-tools.git

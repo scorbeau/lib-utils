@@ -7,8 +7,8 @@
 # Define project directories
 ################################################################################
 PROJECT_DIR		= $(abspath ..)
-RESOURCE_DIR	= $(PROJECT_DIR)/res
-SRC_DIR			= $(abspath ./src)
+RESOURCE_DIR	= $(PROJECT_DIR)/resources
+SRC_DIR			= $(abspath ./srcs)
 
 ################################################################################
 # Define target
@@ -54,7 +54,7 @@ DOC_DIR		?= $(PROJ_DIR)/build/doc
 # Compilation flags
 ################################################################################
 CFLAGS		+= -funwind-tables -fstack-protector-all -Wall -Werror
-INCFLAGS	= -iquote $(abspath ./inc)
+INCFLAGS	= -iquote $(abspath ./incs)
 
 ################################################################################
 # Obj to compile
