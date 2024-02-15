@@ -7,8 +7,8 @@
 # Define project directories
 ################################################################################
 PROJECT_DIR		= $(abspath ../..)
-RESOURCE_DIR	= $(PROJECT_DIR)/res
-SRC_DIR			= $(abspath ./src)
+RESOURCE_DIR	= $(PROJECT_DIR)/resources
+SRC_DIR			= $(abspath ./srcs)
 
 ################################################################################
 # Define target
@@ -53,9 +53,10 @@ DOC_DIR		?= $(PROJ_DIR)/build/doc
 ################################################################################
 # Compilation flags
 ################################################################################
-CFLAGS		?= -funwind-tables -fstack-protector-all -Wall -Werror
-override INCFLAGS	+= -iquote $(abspath ./inc)
-LIBS		= -L $(LIB_DIR) -l:lib-utils.a
+CFLAGS ?= -funwind-tables -fstack-protector-all -Wall -Werror
+override INCFLAGS += -iquote $(abspath ./incs)
+LIBS = -L $(LIB_DIR)
+LIBS += -l:lib-utils.a
 
 ################################################################################
 # Obj to compile
@@ -74,14 +75,14 @@ APPL_BIN	= $(APPL_NAME).exe
 ################################################################################
 default: all
 
-all: appl
+all: apps
 
 ################################################################################
 # Build rules
 ################################################################################
-appl: $(APPL_BIN)
+apps: $(APPL_BIN)
 $(APPL_BIN): $(BIN_DIR)/$(APPL_BIN)
-$(BIN_DIR)/%.exe: $(OBJS_LIST)
+$(BIN_DIR)/$(APPL_BIN): $(OBJS_LIST)
 	mkdir -p $(@D)
 	$(CC) -o $@ $^ $(LIBS)
 ifeq ($(CONF), release)

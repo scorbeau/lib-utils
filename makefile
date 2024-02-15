@@ -7,7 +7,7 @@
 # Define project directories
 ################################################################################
 PROJECT_DIR		= $(abspath .)
-RESOURCE_DIR	= $(PROJECT_DIR)/res
+RESOURCE_DIR	= $(PROJECT_DIR)/resources
 
 ################################################################################
 # Define target
@@ -51,14 +51,14 @@ LIB_DIR		?= $(BUILD_DIR)/lib
 BIN_DIR		?= $(BUILD_DIR)/bin
 TEST_DIR	?= $(BUILD_DIR)/test
 DOC_DIR		?= $(PROJECT_DIR)/build/doc
-INC_DIR		?= $(BUILD_DIR)/inc
+INC_DIR		?= $(BUILD_DIR)/incs
 
 ################################################################################
 # Compilation flags
 ################################################################################
 CFLAGS		+= -funwind-tables -fstack-protector-all -Wall -Werror -I $(INC_DIR)
 CXXFLAGS	+= -funwind-tables -fstack-protector-all -Wall -Werror -I $(INC_DIR)
-INCFLAGS	+= -isystem $(PROJECT_DIR)/lib/inc
+INCFLAGS	+= -isystem $(PROJECT_DIR)/lib/incs
 
 ################################################################################
 # Version header file
@@ -73,14 +73,14 @@ PROJECT_NAME	= $(notdir $(shell git rev-parse --show-toplevel))
 ################################################################################
 # Binary applications.
 ################################################################################
-APPL_NAME = $(dir $(wildcard appl/*/makefile))
+APPL_NAME = $(dir $(wildcard apps/*/makefile))
 
 ################################################################################
 # Main rules
 ################################################################################
 default: all
 
-all: lib appl
+all: lib apps
 
 ################################################################################
 # Build rules
@@ -90,12 +90,12 @@ lib: $(GIT_VERSION_FILE)
 		BUILD_DIR="$(BUILD_DIR)" LIB_DIR="$(LIB_DIR)" OBJ_DIR="$(OBJ_DIR)/lib" \
 		DOC_DIR="$(DOC_DIR)" CONF="$(CONF)"
 
-appl: lib
+apps: lib
 	@for d in `echo $(APPL_NAME)`; do \
 		make -C $$d APPL_NAME=`basename $$d` CROSS="$(CROSS)" CFLAGS="$(CFLAGS)" \
 		BUILD_DIR="$(BUILD_DIR)" LIB_DIR="$(LIB_DIR)" BIN_DIR="$(BIN_DIR)" \
 		OBJ_DIR="$(OBJ_DIR)/bin" DOC_DIR="$(DOC_DIR)" CONF="$(CONF)" \
-		INCFLAGS="$(INCFLAGS)" appl || exit 1; \
+		INCFLAGS="$(INCFLAGS)" apps || exit 1; \
 	done
 
 tests: lib
@@ -106,7 +106,7 @@ tests: lib
 $(GIT_VERSION_FILE):
 	@mkdir -p $(@D)
 	@rm -Rf $@
-	$(RESOURCE_DIR)/tools/git/version_header_generator.sh $@
+	$(RESOURCE_DIR)/tools/git-version-tools/version-header-generator.sh $@
 
 ################################################################################
 # Clean rules
@@ -117,4 +117,4 @@ clean:
 distclean:
 	rm -rf build
 
-.PHONY: default all appl lib tests clean
+.PHONY: default all apps lib tests clean
