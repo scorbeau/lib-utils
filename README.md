@@ -4,12 +4,12 @@
 
 1. [Description](#description)
 2. [Dependencies](#dependencies)
-3. [How to build](#how-to-build)
+3. [Init repository](#init-repository)
+4. [How to build](#how-to-build)
     1. [Compile library](#compile-library)
     2. [Compile test application](#compile-test-application)
     3. [Compile unit test](#compile-unit-test)
-4. [Known issues](#known-issues)
-    1. [Create temporary file](#create-temporary-file)
+5. [Known issues](#known-issues)
 
 ## Description <a name="description"></a>
 
@@ -23,12 +23,26 @@ The project is hosted on Github.
 
 ## Dependencies <a name="dependencies"></a>
 
+This project depends on *git-version-tools* tools installed as submodule of this
+project:
+ * [git-version-tools](https://github.com/scorbeau/git-version-tools)
+
 This project is compiled with [msys2](https://www.msys2.org/) and mingw64 and 
 based on makefile system.
 
 Install packages below:
  * mingw-w64-x86_64-gcc
  * mingw-w64-x86_64-gtest
+
+## Init repository <a name=init-repository></a>
+
+Clone repository and init submodule with commands below:
+
+```(bash)
+git clone git@github.com:scorbeau/lib-utils.git
+cd lib-utils
+git submodule update --init --recursive
+```
 
 ## How to build <a name="how-to-build"></a>
 
@@ -75,13 +89,4 @@ directory.
 
 ## Known issues <a name="known-issues"></a>
 
-### Create temporary file <a name="create-temporary-file"></a>
-
-Cannot create temporary file in C:\Program Files\msys2\tmp\: Permission denied
-
-Change TMP and TEMP shell variable with commands below:
-
-```(bash)
-export TMP=$HOME/tmp
-export TEMP=$HOME/tmp
-```
+Nothing to mention.

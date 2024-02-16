@@ -1,3 +1,9 @@
+# 1.0.2 - 2024-02-16
+
+## Changed
+
+ * Update *README.md*
+
 # 1.0.1 - 2024-02-15
 
 ## Changed
