@@ -8,6 +8,7 @@
 ## Added
 
  * Add rules to install header, library and binaries to specific directory.
+ * Add logger module (console, file or syslog).
 
 # 1.0.2 - 2024-02-16
 
