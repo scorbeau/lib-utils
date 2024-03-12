@@ -26,7 +26,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_I8(num, min, max, ret) \
+#define ASSERT_INT8(num, min, max, ret) \
     do { \
         if((num < INT8_MIN) || (num > INT8_MAX)) { \
             return ret; \
@@ -44,7 +44,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_U8(num, min, max, ret) \
+#define ASSERT_UINT8(num, min, max, ret) \
     do { \
         if((num < UINT8_MIN) || (num > UINT8_MAX)) { \
             return ret; \
@@ -62,7 +62,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_I16(num, min, max, ret) \
+#define ASSERT_INT16(num, min, max, ret) \
     do { \
         if((num < INT16_MIN) || (num > INT16_MAX)) { \
             return ret; \
@@ -80,7 +80,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_U16(num, min, max, ret) \
+#define ASSERT_UINT16(num, min, max, ret) \
     do { \
         if((num < UINT16_MIN) || (num > UINT16_MAX)) { \
             return ret; \
@@ -98,7 +98,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_I32(num, min, max, ret) \
+#define ASSERT_INT32(num, min, max, ret) \
     do { \
         if((num < INT32_MIN) || (num > INT32_MAX)) { \
             return ret; \
@@ -116,7 +116,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_U32(num, min, max, ret) \
+#define ASSERT_UINT32(num, min, max, ret) \
     do { \
         if((num < UINT32_MIN) || (num > UINT32_MAX)) { \
             return ret; \
@@ -134,7 +134,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_I64(num, min, max, ret) \
+#define ASSERT_INT64(num, min, max, ret) \
     do { \
         if((num < INT64_MIN) || (num > INT64_MAX)) { \
             return ret; \
@@ -152,7 +152,7 @@
  * @param ret   Return code value if num not matched.
  * @return ret in case of error otherwise not return.
  */
-#define ASSERT_U64(num, min, max, ret) \
+#define ASSERT_UINT64(num, min, max, ret) \
     do { \
         if((num < UINT64_MIN) || (num > UINT64_MAX)) { \
             return ret; \
@@ -206,20 +206,35 @@
         } \
     } while (0);
 
+/*!
+ * @brief Check if condition (cond) is true and return with code (ret).
+ * @param cond  Condition to check.
+ * @param ret   Return code value if condition is false.
+ * @return ret in case of error otherwise not return.
+ */
+#define ASSERT( cond, ret ) \
+    do { \
+        if( cond ) { \
+            return ret; \
+        } \
+    } while (0);
+
 #else /* !DISABLE_PARANOID_MODE */
 
-#define ASSERT_I8(num, min, max, ret)
-#define ASSERT_U8(num, min, max, ret)
-#define ASSERT_I16(num, min, max, ret)
-#define ASSERT_U16(num, min, max, ret)
-#define ASSERT_I32(num, min, max, ret)
-#define ASSERT_U32(num, min, max, ret)
+#define ASSERT_INT8(num, min, max, ret)
+#define ASSERT_UINT8(num, min, max, ret)
+#define ASSERT_INT16(num, min, max, ret)
+#define ASSERT_UINT16(num, min, max, ret)
+#define ASSERT_INT32(num, min, max, ret)
+#define ASSERT_UINT32(num, min, max, ret)
 
 #define ASSERT_STR_NOT_NULL(str, ret)
 
 #define ASSERT_PTR(ptr, ret)
 
 #define ASSERT_PTR32(ptr, ret)
+
+#define ASSERT( cond, ret )
 
 #endif
 
