@@ -3,6 +3,7 @@
 ## Changed
 
  * Rename *git-informations.h* to *lib-utils-git-informations.h*
+ * Refractor ASSERT macro name.
 
 ## Added
 
