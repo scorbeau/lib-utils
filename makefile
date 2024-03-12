@@ -52,6 +52,9 @@ BIN_DIR		?= $(BUILD_DIR)/bin
 TEST_DIR	?= $(BUILD_DIR)/test
 DOC_DIR		?= $(PROJECT_DIR)/build/doc
 INC_DIR		?= $(BUILD_DIR)/incs
+HEADER_INSTALL_DIR ?= /usr/include
+LIB_INSTALL_DIR ?= /usr/lib
+BIN_INSTALL_DIR ?= /usr/bin
 
 ################################################################################
 # Compilation flags
@@ -63,7 +66,7 @@ INCFLAGS	+= -isystem $(PROJECT_DIR)/lib/incs
 ################################################################################
 # Version header file
 ################################################################################
-GIT_VERSION_FILE=$(INC_DIR)/git-informations.h
+GIT_VERSION_FILE=$(INC_DIR)/lib-utils-git-informations.h
 
 ################################################################################
 # Project name
@@ -109,6 +112,33 @@ $(GIT_VERSION_FILE):
 	$(RESOURCE_DIR)/tools/git-version-tools/version-header-generator.sh $@
 
 ################################################################################
+# Install target
+################################################################################
+install: install-header install-lib install-bin
+
+install-header: $(HEADER_INSTALL_DIR)
+	@echo "Install header from $(INC_DIR) to $<"
+	@cp lib/incs/* $<
+	@cp $(INC_DIR)/* $<
+
+$(HEADER_INSTALL_DIR):
+	@mkdir -p $@
+
+install-lib: $(LIB_INSTALL_DIR)
+	@echo "Install libs from $(LIB_DIR) to $<"
+	@cp $(LIB_DIR)/* $<
+
+$(LIB_INSTALL_DIR):
+	@mkdir -p $@
+
+install-bin: $(BIN_INSTALL_DIR)
+	@echo "Install binaries from $(BIN_DIR) to $<"
+	@cp $(BIN_DIR)/* $@
+
+$(BIN_INSTALL_DIR):
+	@mkdir -p $@
+
+################################################################################
 # Clean rules
 ################################################################################
 clean:
@@ -117,4 +147,5 @@ clean:
 distclean:
 	rm -rf build
 
-.PHONY: default all apps lib tests clean
+.PHONY: default all apps lib install install-header install-lib install-bin\
+		tests clean

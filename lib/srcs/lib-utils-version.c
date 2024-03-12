@@ -9,8 +9,8 @@
 
 #include "lib-utils-version.h"
 
-#if __has_include( "git-informations.h" )
-#include "git-informations.h"
+#if __has_include( "lib-utils-git-informations.h" )
+#include "lib-utils-git-informations.h"
 #endif
 
 #ifndef GIT_TAG

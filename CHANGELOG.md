@@ -1,3 +1,13 @@
+# UNRELEASED - YYYY-MM-DD
+
+## Changed
+
+ * Rename *git-informations.h* to *lib-utils-git-informations.h*
+
+## Added
+
+ * Add rules to install header, library and binaries to specific directory.
+
 # 1.0.2 - 2024-02-16
 
 ## Changed
