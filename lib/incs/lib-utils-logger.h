@@ -141,10 +141,10 @@ void print_log_msg( const char* file,
                     const char* buff,
                     int         size );
 
-#define _STR( str )             #str
-#define _XSTR( str )            _STR( str )
-#define _LOG_LVL( level )       LEVEL_##level
-#define _XLOG_LVL( level )      _LOG_LVL( level )
+#define _STR( str )           #str
+#define _XSTR( str )          _STR( str )
+#define _LOG_LVL( lvl )       LEVEL_##lvl
+#define _XLOG_LVL( lvl )      _LOG_LVL( lvl )
 
 /*!
  * @brief Define critical log.
